@@ -1,0 +1,117 @@
+{
+  "timestamp": "2026-05-30T14-22-05-567Z",
+  "analysis": {
+    "face_shape": "round",
+    "skin_tone": "light",
+    "personal_color": "Winter",
+    "hair_texture": "straight",
+    "hair_density": "medium",
+    "hair_length_current": "short",
+    "natural_hair_color": "Black",
+    "hairline_type": "straight",
+    "forehead_size": "medium",
+    "overall_vibe": [
+      "Youthful",
+      "Casual",
+      "Friendly"
+    ],
+    "best_match": {
+      "name": "Ivy League",
+      "match_score": 95,
+      "fade_level": "low",
+      "top_length_cm": 5,
+      "maintenance": "low",
+      "reason": "The Ivy League cut complements a round face by adding height and structure, while being easy to maintain."
+    },
+    "good_options": [
+      {
+        "name": "Crew Cut",
+        "match_score": 90,
+        "reason": "The Crew Cut is versatile and helps define the face shape."
+      },
+      {
+        "name": "Textured Crop",
+        "match_score": 85,
+        "reason": "Adds texture to straight hair, enhancing the overall vibe."
+      },
+      {
+        "name": "Side Part",
+        "match_score": 80,
+        "reason": "The Side Part adds a classic touch and works well with the face shape."
+      }
+    ],
+    "not_recommended": [
+      {
+        "name": "Mullet",
+        "reason": "A Mullet may not suit a round face and could look unbalanced."
+      },
+      {
+        "name": "Mohawk",
+        "reason": "A Mohawk might be too bold and does not complement a round face."
+      },
+      {
+        "name": "Bowl Cut",
+        "reason": "The Bowl Cut emphasizes roundness, which may not be flattering."
+      }
+    ],
+    "parting_recommendation": "A side part is recommended to add structure and contrast.",
+    "fringe_recommendation": "Opt for a soft fringe to avoid emphasizing the roundness of the face.",
+    "length_options": {
+      "short_verdict": "Ideal for a neat, easy-to-manage look.",
+      "short_cm": "3-6",
+      "medium_verdict": "Allows for more styling options without being too high-maintenance.",
+      "medium_cm": "7-12",
+      "long_verdict": "Not recommended as it can make the face appear rounder.",
+      "long_cm": "13+"
+    },
+    "color": {
+      "recommended": [
+        {
+          "name": "Ash Brown",
+          "hex": "#A89F91",
+          "tone": "cool"
+        },
+        {
+          "name": "Jet Black",
+          "hex": "#0A0A0A",
+          "tone": "neutral"
+        },
+        {
+          "name": "Blue Black",
+          "hex": "#101820",
+          "tone": "cool"
+        },
+        {
+          "name": "Platinum",
+          "hex": "#E5E4E2",
+          "tone": "cool"
+        },
+        {
+          "name": "Charcoal",
+          "hex": "#36454F",
+          "tone": "neutral"
+        }
+      ],
+      "avoid": [
+        {
+          "name": "Golden Blonde",
+          "reason": "Warm tones may clash with the Winter personal color palette."
+        },
+        {
+          "name": "Copper Red",
+          "reason": "Overly warm shades can be unflattering against light skin."
+        }
+      ],
+      "formula": null,
+      "developer_vol": null,
+      "bleach_required": null
+    },
+    "celebrity_ref": null,
+    "summary": "The Ivy League cut is the best match, offering a neat and structured look that complements the round face. A side part and soft fringe are recommended to add style without emphasizing roundness. Cool and neutral hair colors enhance the overall appearance.",
+    "care_tips": [
+      "Use a lightweight styling product to maintain texture and hold.",
+      "Regular trims every 4-6 weeks to keep the style sharp.",
+      "Consider a sulfate-free shampoo to maintain natural shine."
+    ]
+  }
+}

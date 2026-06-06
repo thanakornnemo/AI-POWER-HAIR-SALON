@@ -1,0 +1,117 @@
+{
+  "timestamp": "2026-05-30T07-08-10-228Z",
+  "analysis": {
+    "face_shape": "round",
+    "skin_tone": "light",
+    "personal_color": "Winter",
+    "hair_texture": "straight",
+    "hair_density": "medium",
+    "hair_length_current": "short",
+    "natural_hair_color": "Black",
+    "hairline_type": "rounded",
+    "forehead_size": "medium",
+    "overall_vibe": [
+      "Friendly",
+      "Youthful",
+      "Casual"
+    ],
+    "best_match": {
+      "name": "Crew Cut",
+      "match_score": 90,
+      "fade_level": "mid",
+      "top_length_cm": 5,
+      "maintenance": "low",
+      "reason": "The Crew Cut is easy to maintain, complements a round face, and enhances a youthful look."
+    },
+    "good_options": [
+      {
+        "name": "Ivy League",
+        "match_score": 85,
+        "reason": "The Ivy League provides a neat appearance and is versatile for a round face."
+      },
+      {
+        "name": "Textured Crop",
+        "match_score": 80,
+        "reason": "The Textured Crop adds volume and texture that suits a round face shape."
+      },
+      {
+        "name": "Side Part",
+        "match_score": 78,
+        "reason": "The Side Part creates an illusion of an elongated face, balancing a round face shape."
+      }
+    ],
+    "not_recommended": [
+      {
+        "name": "Buzz Cut",
+        "reason": "A Buzz Cut may accentuate roundness rather than elongating the face."
+      },
+      {
+        "name": "Bowl Cut",
+        "reason": "The Bowl Cut mimics the roundness of the face, offering little contrast."
+      },
+      {
+        "name": "Mullet",
+        "reason": "A Mullet may not balance well with the natural face shape and hair texture."
+      }
+    ],
+    "parting_recommendation": "A side part will add dimension and shape to a round face.",
+    "fringe_recommendation": "Avoid heavy fringe; opt for light, side-swept options instead.",
+    "length_options": {
+      "short_verdict": "Highly recommended for easy maintenance and enhancing features.",
+      "short_cm": "3-6",
+      "medium_verdict": "Works well but requires more styling to maintain shape.",
+      "medium_cm": "7-12",
+      "long_verdict": "Less recommended as it may overshadow the face's natural round shape.",
+      "long_cm": "13+"
+    },
+    "color": {
+      "recommended": [
+        {
+          "name": "Cool Black",
+          "hex": "#0E0E0E",
+          "tone": "cool"
+        },
+        {
+          "name": "Deep Blue",
+          "hex": "#283E68",
+          "tone": "cool"
+        },
+        {
+          "name": "Charcoal Gray",
+          "hex": "#4A4A4A",
+          "tone": "neutral"
+        },
+        {
+          "name": "White Ash",
+          "hex": "#CECECE",
+          "tone": "cool"
+        },
+        {
+          "name": "Navy Blue",
+          "hex": "#2C3E50",
+          "tone": "cool"
+        }
+      ],
+      "avoid": [
+        {
+          "name": "Warm Blonde",
+          "reason": "May clash with overall cool undertones."
+        },
+        {
+          "name": "Copper Red",
+          "reason": "Too bold against a light skin tone."
+        }
+      ],
+      "formula": null,
+      "developer_vol": null,
+      "bleach_required": null
+    },
+    "celebrity_ref": null,
+    "summary": "The Crew Cut is ideal given its ease of maintenance and fit for a round face shape with a friendly, youthful vibe. Consider a mid fade for added style.",
+    "care_tips": [
+      "Use a light hold styling product for texture.",
+      "Regular trims every 4-6 weeks to maintain shape.",
+      "Moisturize scalp to prevent dryness, especially in cooler weather."
+    ]
+  }
+}

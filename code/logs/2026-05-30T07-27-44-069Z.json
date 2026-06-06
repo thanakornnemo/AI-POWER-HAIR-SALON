@@ -1,0 +1,117 @@
+{
+  "timestamp": "2026-05-30T07-27-44-069Z",
+  "analysis": {
+    "face_shape": "round",
+    "skin_tone": "light",
+    "personal_color": "Winter",
+    "hair_texture": "straight",
+    "hair_density": "medium",
+    "hair_length_current": "medium",
+    "natural_hair_color": "Black",
+    "hairline_type": "straight",
+    "forehead_size": "medium",
+    "overall_vibe": [
+      "Youthful",
+      "Friendly",
+      "Clean"
+    ],
+    "best_match": {
+      "name": "Two Block",
+      "match_score": 90,
+      "fade_level": "low",
+      "top_length_cm": 8,
+      "maintenance": "medium",
+      "reason": "Enhances the round shape and provides a trendy yet adaptable look."
+    },
+    "good_options": [
+      {
+        "name": "Comma Hair",
+        "match_score": 85,
+        "reason": "Stylish and suitable for a round face, allowing for a youthful appearance."
+      },
+      {
+        "name": "Shaggy Cut (male)",
+        "match_score": 80,
+        "reason": "Casual and easygoing, complements straight hair texture."
+      },
+      {
+        "name": "Ivy League",
+        "match_score": 75,
+        "reason": "Classic and sophisticated, accentuates face shape well."
+      }
+    ],
+    "not_recommended": [
+      {
+        "name": "Mohawk",
+        "reason": "Does not harmonize with face shape and hair texture."
+      },
+      {
+        "name": "Bowl Cut",
+        "reason": "Enhances roundness, may not flatter the face shape."
+      },
+      {
+        "name": "Mullet",
+        "reason": "Unsuited for straight texture and may overwhelm face."
+      }
+    ],
+    "parting_recommendation": "Side part adds interesting dimension to a round face.",
+    "fringe_recommendation": "Curtain bangs can provide a framing effect.",
+    "length_options": {
+      "short_verdict": "Will accentuate facial features well.",
+      "short_cm": "3-6",
+      "medium_verdict": "Offers versatility while complementing natural hair texture.",
+      "medium_cm": "7-12",
+      "long_verdict": "May overwhelm facial proportions.",
+      "long_cm": "13+"
+    },
+    "color": {
+      "recommended": [
+        {
+          "name": "Jet Black",
+          "hex": "#0A0A0A",
+          "tone": "cool"
+        },
+        {
+          "name": "Cool Dark Brown",
+          "hex": "#3D2B1F",
+          "tone": "cool"
+        },
+        {
+          "name": "Ash Brown",
+          "hex": "#6C5A4C",
+          "tone": "cool"
+        },
+        {
+          "name": "Blue Black",
+          "hex": "#203A43",
+          "tone": "cool"
+        },
+        {
+          "name": "Dark Ash Blonde",
+          "hex": "#A89F94",
+          "tone": "neutral"
+        }
+      ],
+      "avoid": [
+        {
+          "name": "Warm Red",
+          "reason": "Conflicts with personal Winter color palette."
+        },
+        {
+          "name": "Golden Blonde",
+          "reason": "Too warm for natural skin tone."
+        }
+      ],
+      "formula": null,
+      "developer_vol": null,
+      "bleach_required": null
+    },
+    "celebrity_ref": null,
+    "summary": "A Two Block hairstyle suits the natural hair texture and face shape well, providing a modern and versatile look. Cool-toned hair colors like Jet Black work best with this individual's Winter palette.",
+    "care_tips": [
+      "Use a gentle, sulfate-free shampoo to maintain natural oils.",
+      "Regular trims will help maintain the shape and manage density.",
+      "Moisturizing conditioner helps keep hair looking shiny and healthy."
+    ]
+  }
+}

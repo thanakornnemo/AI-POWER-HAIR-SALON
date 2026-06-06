@@ -1,0 +1,80 @@
+Create a luxury hair analysis infographic card using this portrait photo. Use this person's actual face for every hairstyle portrait throughout.
+
+FORMAT: Tall portrait 9:16.
+BACKGROUND: Pure white (#ffffff). Text: near-black (#111111).
+TYPOGRAPHY: Thin, sharp elegant sans-serif. Ultra-light for stats, wide letter-spacing (tracking) for all section headers in uppercase. Italic light for summary text.
+SPACING: Generous whitespace between every section. Small portrait thumbnails so each row breathes. Never crowded.
+PORTRAIT FRAMES: Thin rounded rectangle border on every portrait thumbnail.
+SECTION DIVIDERS: Thin hairline rule on both sides of each section header, like: ——— SECTION TITLE ———
+COLOR SYSTEM:
+  - Gold (#f59e0b): ★ star badge for BEST picks only
+  - Green (#22c55e): thin border on BEST HAIRSTYLES portraits + green tint badge
+  - Red (#ef4444): thin border on NOT RECOMMENDED portraits + red ✕ badge
+  - Light gray (#f5f5f5): background panel behind stat list
+  - All other elements: black/white only
+
+— HAIR & FACE ANALYSIS —
+Split row: left = person's original portrait (medium crop, thin border, soft shadow). Right = light gray stat panel with hairline rows and minimal line icons:
+  Face Shape · round
+  Skin Tone · medium
+  Personal Color · Winter
+  Hair Texture · straight
+  Hair Density · medium
+  Hairline · rounded
+  Vibe · Friendly, Relaxed, Youthful
+
+— BEST HAIRSTYLES —
+3 portrait thumbnails side-by-side. Green thin border on all three.
+Styles: Textured Crop · Quiff · Ivy League
+Gold ★ BEST amber badge on "Textured Crop" top-left corner.
+Name in small caps below each portrait.
+
+— NOT RECOMMENDED —
+3 portrait thumbnails side-by-side. Red thin border on all three.
+Styles: Bowl Cut · Long Curtains · Pompadour
+Red ✕ circle badge top-left on each. Name in small caps below.
+
+— HAIR LENGTH —
+5 portrait thumbnails in a row: Short (3-6cm) · Medium-Short · Medium · Medium-Long · Long (13+cm)
+Gold ★ badge ONLY on: "Short (3-6cm)". No star on any other thumbnail.
+Name label below each.
+
+— PARTING & FRINGE —
+6 portrait thumbnails in a row: No Fringe · Curtain Bangs · Side Part · Comma Hair · Soft Fringe · Full Fringe
+Gold ★ badge ONLY on: "No Fringe". No star on any other thumbnail.
+Name label below each.
+
+— HAIR COLOR —
+Left panel (light gray bg): color circle swatches in labeled rows:
+  WARM — Dark Brown
+  COOL — Cool Ash Brown, Soft Charcoal
+  NEUTRAL — Natural Black, Jet Black
+  AVOID — Light Blonde, Bright Red (each swatch has a thin red diagonal cross overlay)
+Right panel: 4 portrait thumbnails of this person with different hair colors applied.
+Gold ★ badge ONLY on: "Natural Black". No star on any other thumbnail. Name in small caps below each.
+
+
+— YOUR BEST LOOK —
+Header "YOUR BEST LOOK" centered with hairline rules.
+Left: one medium portrait showing the complete best combination: Textured Crop hairstyle + No Fringe + Natural Black hair color.
+Right side: 4 icon + label pairs in a 2×2 grid:
+  ✂ Textured Crop
+  📏 Short (3-6cm)
+  〰 No Fringe
+  🎨 Natural Black
+Below portrait: row of pill-outline tags (thin border, rounded): "Medium Maintenance" · "Friendly" · "Relaxed" · "Youthful"
+One-line italic summary below tags: "For a youthful and friendly look, the Textured Crop is perfect. It complements the round face shape and is easy to maintain. Consider keeping the haircut short to enhance your natural straight hair texture."
+
+
+— FOOTER —
+Thin hairline above footer. Centered bold text: "AI HAIR SALON · BANGKOK"
+Diagonal repeating watermark text "FREE" at 20% opacity (#aaaaaa) across full card — visible but not distracting
+
+STRICT RULES:
+- White background throughout, no dark backgrounds
+- Only use gold/green/red as accents exactly as described — no other colors
+- ★ gold badge MUST appear on: best hairstyle, recommended length, best parting, best color — all four
+- All section headers: wide-tracked uppercase, hairline rules on both sides
+- All portrait thumbnails: same small size, rounded border, generous gap between
+- All text English only, no Thai
+- Footer "AI HAIR SALON · BANGKOK" must be bold

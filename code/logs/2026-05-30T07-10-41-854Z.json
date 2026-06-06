@@ -1,0 +1,112 @@
+{
+  "timestamp": "2026-05-30T07-10-41-854Z",
+  "analysis": {
+    "face_shape": "round",
+    "skin_tone": "light",
+    "personal_color": "Winter",
+    "hair_texture": "straight",
+    "hair_density": "medium",
+    "hair_length_current": "short",
+    "natural_hair_color": "Black",
+    "hairline_type": "rounded",
+    "forehead_size": "medium",
+    "overall_vibe": [
+      "Youthful",
+      "Fresh",
+      "Friendly"
+    ],
+    "best_match": {
+      "name": "Two Block",
+      "match_score": 90,
+      "fade_level": "mid",
+      "top_length_cm": 8,
+      "maintenance": "medium",
+      "reason": "The Two Block style is trendy and suits a youthful and fresh vibe, enhancing the round face shape by adding structure."
+    },
+    "good_options": [
+      {
+        "name": "Comma Hair",
+        "match_score": 85,
+        "reason": "Adds a modern twist and frames the round face well."
+      },
+      {
+        "name": "Curtain Bangs (male)",
+        "match_score": 80,
+        "reason": "Offers a stylish yet relaxed look suitable for straight hair."
+      },
+      {
+        "name": "Side Part",
+        "match_score": 78,
+        "reason": "Classic and versatile, works well with medium-density hair."
+      }
+    ],
+    "not_recommended": [
+      {
+        "name": "Mullet",
+        "reason": "The style's volume at the back isn’t ideal for a round face."
+      },
+      {
+        "name": "Mohawk",
+        "reason": "Too bold and doesn’t complement the facial structure."
+      },
+      {
+        "name": "Man Bun",
+        "reason": "May elongate the face lesser with insufficient hair length."
+      }
+    ],
+    "parting_recommendation": "A natural side part to add asymmetry for balance.",
+    "fringe_recommendation": "Opt for light, textured fringes to soften the face outline.",
+    "length_options": {
+      "short_verdict": "Great for a clean and defined look.",
+      "short_cm": "3-6",
+      "medium_verdict": "Offers versatility and styling options.",
+      "medium_cm": "7-12",
+      "long_verdict": "Less recommended as it might overwhelm the features.",
+      "long_cm": "13+"
+    },
+    "color": {
+      "recommended": [
+        {
+          "name": "Jet Black",
+          "hex": "#0A0A0A",
+          "tone": "cool"
+        },
+        {
+          "name": "Dark Ash Brown",
+          "hex": "#3C2F2F",
+          "tone": "cool"
+        },
+        {
+          "name": "Blue Black",
+          "hex": "#000033",
+          "tone": "cool"
+        },
+        {
+          "name": "Dark Slate Gray",
+          "hex": "#2F4F4F",
+          "tone": "neutral"
+        }
+      ],
+      "avoid": [
+        {
+          "name": "Honey Blonde",
+          "reason": "May clash with the cool undertones."
+        },
+        {
+          "name": "Light Auburn",
+          "reason": "Too warm for a winter personal color profile."
+        }
+      ],
+      "formula": null,
+      "developer_vol": null,
+      "bleach_required": null
+    },
+    "celebrity_ref": null,
+    "summary": "The Two Block haircut suits youthful and fresh styles, adding structure to a round face shape. Complementing cool undertones, recommended colors enhance the natural hair color. Opt for short to medium lengths for versatility.",
+    "care_tips": [
+      "Use a lightweight styling cream to maintain shape without weighing hair down.",
+      "Regular trims every 4-6 weeks to retain the desired length and style.",
+      "Moisturizing shampoo and conditioner to keep straight hair smooth and manageable."
+    ]
+  }
+}

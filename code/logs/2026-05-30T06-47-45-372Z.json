@@ -1,0 +1,117 @@
+{
+  "timestamp": "2026-05-30T06-47-45-372Z",
+  "analysis": {
+    "face_shape": "round",
+    "skin_tone": "light",
+    "personal_color": "Winter",
+    "hair_texture": "straight",
+    "hair_density": "medium",
+    "hair_length_current": "short",
+    "natural_hair_color": "Black",
+    "hairline_type": "straight",
+    "forehead_size": "medium",
+    "overall_vibe": [
+      "Friendly",
+      "Charming",
+      "Youthful"
+    ],
+    "best_match": {
+      "name": "Crew Cut",
+      "match_score": 95,
+      "fade_level": "mid",
+      "top_length_cm": 4,
+      "maintenance": "low",
+      "reason": "Enhances facial symmetry while being easy to maintain."
+    },
+    "good_options": [
+      {
+        "name": "French Crop",
+        "match_score": 90,
+        "reason": "Works well with straight hair for a clean look."
+      },
+      {
+        "name": "Ivy League",
+        "match_score": 88,
+        "reason": "Offers a classic look with a modern twist."
+      },
+      {
+        "name": "Side Part",
+        "match_score": 85,
+        "reason": "Adds sophistication and is versatile."
+      }
+    ],
+    "not_recommended": [
+      {
+        "name": "Man Bun",
+        "reason": "Requires longer hair and may not suit face shape."
+      },
+      {
+        "name": "Mohawk",
+        "reason": "Too edgy and contrasts with a youthful vibe."
+      },
+      {
+        "name": "Mullet",
+        "reason": "Not optimal for a round face shape."
+      }
+    ],
+    "parting_recommendation": "A side part enhances facial features and adds elegance.",
+    "fringe_recommendation": "Opt for a light fringe to keep it balanced and open up the face.",
+    "length_options": {
+      "short_verdict": "Very suitable for easy maintenance.",
+      "short_cm": "3-6",
+      "medium_verdict": "Good choice for versatility and style.",
+      "medium_cm": "7-12",
+      "long_verdict": "Not recommended for current style preference.",
+      "long_cm": "13+"
+    },
+    "color": {
+      "recommended": [
+        {
+          "name": "Ash Black",
+          "hex": "#0B0B0B",
+          "tone": "cool"
+        },
+        {
+          "name": "Dark Brown",
+          "hex": "#4A2C2A",
+          "tone": "neutral"
+        },
+        {
+          "name": "Blue Black",
+          "hex": "#101820",
+          "tone": "cool"
+        },
+        {
+          "name": "Natural Black",
+          "hex": "#1C1B1A",
+          "tone": "neutral"
+        },
+        {
+          "name": "Jet Black",
+          "hex": "#000000",
+          "tone": "cool"
+        }
+      ],
+      "avoid": [
+        {
+          "name": "Blonde",
+          "reason": "Clashes with personal color palette."
+        },
+        {
+          "name": "Warm Red",
+          "reason": "Does not complement skin undertone."
+        }
+      ],
+      "formula": null,
+      "developer_vol": null,
+      "bleach_required": null
+    },
+    "celebrity_ref": null,
+    "summary": "The ideal style is a Crew Cut, which complements the facial structure and is easy to maintain. Avoid longer styles that may detract from facial balance. Ash and cool tones in color are recommended for harmony with personal color palette.",
+    "care_tips": [
+      "Use a nourishing conditioner to maintain hair texture.",
+      "Trim every 4-6 weeks to keep the shape.",
+      "Use a light styling product for a neat finish."
+    ]
+  }
+}

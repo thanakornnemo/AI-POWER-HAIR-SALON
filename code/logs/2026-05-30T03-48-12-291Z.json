@@ -1,0 +1,121 @@
+{
+  "timestamp": "2026-05-30T03-48-12-291Z",
+  "analysis": {
+    "face_shape": "round",
+    "skin_tone": "light",
+    "personal_color": "Winter",
+    "hair_texture": "straight",
+    "hair_density": "medium",
+    "hair_length_current": "short",
+    "natural_hair_color": "Black",
+    "hairline_type": "rounded",
+    "forehead_size": "medium",
+    "overall_vibe": [
+      "Friendly",
+      "Youthful",
+      "Cheerful"
+    ],
+    "best_match": {
+      "name": "Textured Crop",
+      "match_score": 92,
+      "fade_level": "mid",
+      "top_length_cm": 5,
+      "maintenance": "medium",
+      "reason": "Enhances face shape and offers a modern, trendy look."
+    },
+    "good_options": [
+      {
+        "name": "Crew Cut",
+        "match_score": 88,
+        "reason": "Low maintenance and works well with round face shapes."
+      },
+      {
+        "name": "Caesar Cut",
+        "match_score": 85,
+        "reason": "Accentuates features and is easy to style."
+      },
+      {
+        "name": "Ivy League",
+        "match_score": 83,
+        "reason": "Versatile and classic, suits the face shape well."
+      }
+    ],
+    "not_recommended": [
+      {
+        "name": "Long Slick Back",
+        "reason": "Can make the face appear wider."
+      },
+      {
+        "name": "Mullet",
+        "reason": "Incompatible with face shape and not trendy."
+      },
+      {
+        "name": "Man Bun",
+        "reason": "Too much emphasis on roundness."
+      }
+    ],
+    "parting_recommendation": "Natural side part to add dimension.",
+    "fringe_recommendation": "Short, textured fringe to complement face shape.",
+    "length_options": {
+      "short_verdict": "Best for ease and highlights facial features.",
+      "short_cm": "3-6",
+      "medium_verdict": "Good choice for style versatility.",
+      "medium_cm": "7-12",
+      "long_verdict": "Not ideal; can overwhelm face shape.",
+      "long_cm": "13+"
+    },
+    "color": {
+      "recommended": [
+        {
+          "name": "Jet Black",
+          "hex": "#0A0A0A",
+          "tone": "cool"
+        },
+        {
+          "name": "Deep Chocolate",
+          "hex": "#3B3024",
+          "tone": "neutral"
+        },
+        {
+          "name": "Ash Brown",
+          "hex": "#796C62",
+          "tone": "cool"
+        },
+        {
+          "name": "Charcoal",
+          "hex": "#5D5E60",
+          "tone": "cool"
+        },
+        {
+          "name": "Soft Blue Black",
+          "hex": "#101820",
+          "tone": "cool"
+        }
+      ],
+      "avoid": [
+        {
+          "name": "Platinum Blonde",
+          "reason": "Too contrasting with skin tone."
+        },
+        {
+          "name": "Copper Red",
+          "reason": "Clashes with personal color palette."
+        },
+        {
+          "name": "Golden Blonde",
+          "reason": "Too warm for Winter undertones."
+        }
+      ],
+      "formula": null,
+      "developer_vol": null,
+      "bleach_required": null
+    },
+    "celebrity_ref": null,
+    "summary": "A textured crop haircut suits the round face shape and complements the natural features. Keeping the hair color dark or cool-toned enhances the overall appearance. Short styles are recommended for easy maintenance and smart look.",
+    "care_tips": [
+      "Use a lightweight styling cream for texture.",
+      "Trim regularly to maintain shape.",
+      "Use a sulfate-free shampoo to keep hair soft."
+    ]
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "timestamp": "2026-05-30T07-53-48-001Z",
+  "analysis": {
+    "face_shape": "round",
+    "skin_tone": "light",
+    "personal_color": "Winter",
+    "hair_texture": "straight",
+    "hair_density": "medium",
+    "hair_length_current": "short",
+    "natural_hair_color": "Black",
+    "hairline_type": "rounded",
+    "forehead_size": "medium",
+    "overall_vibe": [
+      "Friendly",
+      "Youthful",
+      "Casual"
+    ],
+    "best_match": {
+      "name": "Two Block",
+      "match_score": 90,
+      "fade_level": "low",
+      "top_length_cm": 6,
+      "maintenance": "medium",
+      "reason": "The Two Block style complements a round face and medium hair density, providing a trendy and youthful look."
+    },
+    "good_options": [
+      {
+        "name": "Comma Hair",
+        "match_score": 85,
+        "reason": "The Comma Hair style offers a modern twist that enhances the natural features of a round face."
+      },
+      {
+        "name": "French Crop",
+        "match_score": 80,
+        "reason": "A French Crop provides a clean silhouette and is easy to maintain with straight hair."
+      },
+      {
+        "name": "Ivy League",
+        "match_score": 78,
+        "reason": "The Ivy League is a classic style that balances sophistication with ease."
+      }
+    ],
+    "not_recommended": [
+      {
+        "name": "Mullet",
+        "reason": "The Mullet may not suit a round face shape and could overwhelm the features."
+      },
+      {
+        "name": "Mohawk",
+        "reason": "A Mohawk might be too bold and not align with the overall casual vibe."
+      },
+      {
+        "name": "Bowl Cut",
+        "reason": "A Bowl Cut can accentuate roundness, which might not be flattering."
+      }
+    ],
+    "parting_recommendation": "Side parting to add asymmetry and contrast.",
+    "fringe_recommendation": "Consider a light fringe to frame the face gently.",
+    "length_options": {
+      "short_verdict": "Great for easy maintenance and a sharp look.",
+      "short_cm": "3-6",
+      "medium_verdict": "Allows for versatility in styling.",
+      "medium_cm": "7-12",
+      "long_verdict": "May not be ideal for a round face, as it can add volume.",
+      "long_cm": "13+"
+    },
+    "color": {
+      "recommended": [
+        {
+          "name": "Jet Black",
+          "hex": "#0A0A0A",
+          "tone": "neutral"
+        },
+        {
+          "name": "Charcoal",
+          "hex": "#36454F",
+          "tone": "cool"
+        },
+        {
+          "name": "Dark Chocolate",
+          "hex": "#3B2F2F",
+          "tone": "warm"
+        },
+        {
+          "name": "Slate Gray",
+          "hex": "#708090",
+          "tone": "cool"
+        },
+        {
+          "name": "Blue Black",
+          "hex": "#101820",
+          "tone": "cool"
+        }
+      ],
+      "avoid": [
+        {
+          "name": "Light Blonde",
+          "reason": "May contrast too starkly with natural features."
+        },
+        {
+          "name": "Bright Red",
+          "reason": "Could clash with the cool undertones of the skin."
+        }
+      ],
+      "formula": null,
+      "developer_vol": null,
+      "bleach_required": null
+    },
+    "celebrity_ref": null,
+    "summary": "With a round face and straight, medium-density hair, styles like the Two Block can enhance your natural look. Opt for side parting to create balance, and consider cool-toned hair colors for a harmonious appearance.",
+    "care_tips": [
+      "Use a light styling product to maintain shape.",
+      "Regular trims every 4-6 weeks to keep the style fresh.",
+      "Condition regularly to maintain hair health."
+    ]
+  }
+}

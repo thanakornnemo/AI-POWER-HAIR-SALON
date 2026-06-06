@@ -1,0 +1,78 @@
+You are a graphic design engine. Produce this exact infographic layout every time — no creative deviation. Use the uploaded portrait photo as the face reference for every person thumbnail.
+
+CANVAS: Portrait 9:16, 1024×1792px, white #ffffff background throughout.
+FONT: Single typeface — thin/light weight geometric sans-serif. Headers: uppercase, letter-spacing 0.25em. Labels: uppercase, letter-spacing 0.15em, size 9pt. Values: regular weight, 10pt.
+COLORS: #111111 text · #f59e0b gold star badges · #22c55e green borders (recommended) · #ef4444 red borders (avoid) · #f5f5f5 light gray panel bg. No other colors.
+SECTION DIVIDER: always "——— TITLE ———" centered, thin 0.5px hairline extending left and right to card edges.
+THUMBNAIL: all portrait thumbnails identical size (width ~120px), 4:5 ratio, 2px rounded corners (radius 6px), 1px border. Gap between thumbnails: 10px.
+
+━━━ BLOCK 1: HAIR & FACE ANALYSIS ━━━
+Two-column row. Left col (40%): original photo, 4:5 crop, 1px border, subtle drop shadow. Right col (60%): light gray #f5f5f5 panel, 7 rows separated by 0.5px hairlines, each row has: [line icon 16px] [LABEL spaced caps] [value right-aligned].
+Row 1: face icon · FACE SHAPE · round
+Row 2: drop icon · SKIN TONE · light
+Row 3: palette icon · PERSONAL COLOR · Winter
+Row 4: wave icon · HAIR TEXTURE · straight
+Row 5: dots icon · HAIR DENSITY · medium
+Row 6: arc icon · HAIRLINE · rounded
+Row 7: star icon · VIBE · Friendly, Youthful, Casual
+
+━━━ BLOCK 2: BEST HAIRSTYLES ━━━
+Section divider: ——— BEST HAIRSTYLES ———
+3 thumbnails in one row, equal spacing, each with 2px green #22c55e border.
+Thumbnail 1: "Crew Cut" — gold ★ badge (16px circle, gold bg, white star) top-left corner
+Thumbnail 2: "Ivy League"
+Thumbnail 3: "Textured Crop"
+Below each thumbnail: label in spaced uppercase 9pt.
+
+━━━ BLOCK 3: NOT RECOMMENDED ━━━
+Section divider: ——— NOT RECOMMENDED ———
+3 thumbnails in one row, each with 2px red #ef4444 border + red ✕ circle badge (16px) top-left.
+Thumbnail 1: "Buzz Cut"
+Thumbnail 2: "Bowl Cut"
+Thumbnail 3: "Mullet"
+Below each thumbnail: label in spaced uppercase 9pt.
+
+━━━ BLOCK 4: HAIR LENGTH ━━━
+Section divider: ——— HAIR LENGTH ———
+5 thumbnails in one row, equal spacing, 1px neutral border.
+Left to right: "Short (3-6cm)" · "Medium-Short" · "Medium" · "Medium-Long" · "Long (13+cm)"
+Gold ★ badge ONLY on thumbnail labeled "Short (3-6cm)". Label below each.
+
+━━━ BLOCK 5: PARTING & FRINGE ━━━
+Section divider: ——— PARTING & FRINGE ———
+6 thumbnails in one row, 1px neutral border.
+Left to right: "No Fringe" · "Curtain Bangs" · "Side Part" · "Comma Hair" · "Soft Fringe" · "Full Fringe"
+Gold ★ badge ONLY on thumbnail labeled "Side Part". Label below each.
+
+━━━ BLOCK 6: HAIR COLOR ━━━
+Section divider: ——— HAIR COLOR ———
+Two-column row:
+Left (38%): light gray #f5f5f5 panel. 4 rows:
+  WARM · circle swatches: Dark Brown
+  COOL · circle swatches: Cool Black, Deep Blue, White Ash, Navy Blue
+  NEUTRAL · circle swatches: Charcoal Gray
+  AVOID · circle swatches with red diagonal cross: Warm Blonde, Copper Red
+  Each swatch: 20px diameter circle filled with the actual hair color, label below in 7pt.
+Right (62%): 4 thumbnails in one row, 1px neutral border.
+  Left to right: "Cool Black" · "Deep Blue" · "Charcoal Gray" · "White Ash"
+  Gold ★ ONLY on "Cool Black". Label below each.
+
+
+━━━ BLOCK 7: YOUR BEST LOOK ━━━
+Section divider: ——— YOUR BEST LOOK ———
+Two-column row:
+Left (40%): one medium portrait thumbnail (larger, ~180px wide) showing Crew Cut hairstyle + Side Part + Cool Black hair color.
+Right (60%): 2×2 grid, each cell = [16px line icon] + [label text 9pt uppercase]:
+  [scissors icon] Crew Cut     [ruler icon] Short (3-6cm)
+  [wave icon]     Side Part   [circle icon] Cool Black
+Below full width: pill tags row — thin 1px border rounded pills, 8pt uppercase spaced text:
+  "LOW MAINTENANCE" · "Friendly" · "Youthful"
+Below pills: one italic line 9pt: "The Crew Cut is ideal given its ease of maintenance and fit for a round face shape with a friendly, youthful vibe."
+
+
+━━━ FOOTER ━━━
+Full-width 0.5px hairline.
+Centered text only:
+  Line 1: "AI HAIR SALON" — bold, wide-tracked uppercase, 11pt
+  Line 2: "BANGKOK" — light weight, uppercase, letter-spacing 0.3em, 8pt
+WATERMARK: diagonal text "FREE" repeated across full card, #999999 at 18% opacity, 45° angle, evenly spaced — visible but not intrusive.

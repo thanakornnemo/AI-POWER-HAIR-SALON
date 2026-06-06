@@ -1,0 +1,117 @@
+{
+  "timestamp": "2026-05-30T08-04-04-010Z",
+  "analysis": {
+    "face_shape": "round",
+    "skin_tone": "light",
+    "personal_color": "Winter",
+    "hair_texture": "straight",
+    "hair_density": "medium",
+    "hair_length_current": "short",
+    "natural_hair_color": "Black",
+    "hairline_type": "rounded",
+    "forehead_size": "medium",
+    "overall_vibe": [
+      "Youthful",
+      "Friendly",
+      "Casual"
+    ],
+    "best_match": {
+      "name": "Crew Cut",
+      "match_score": 90,
+      "fade_level": "low",
+      "top_length_cm": 4,
+      "maintenance": "low",
+      "reason": "Accentuates round face and requires low maintenance."
+    },
+    "good_options": [
+      {
+        "name": "Ivy League",
+        "match_score": 85,
+        "reason": "Adds a classic, refined look."
+      },
+      {
+        "name": "Textured Crop",
+        "match_score": 80,
+        "reason": "Provides texture and style."
+      },
+      {
+        "name": "Pompadour",
+        "match_score": 75,
+        "reason": "Gives height and volume."
+      }
+    ],
+    "not_recommended": [
+      {
+        "name": "Mullet",
+        "reason": "Does not complement round face shape."
+      },
+      {
+        "name": "Man Bun",
+        "reason": "Requires longer hair than currently available."
+      },
+      {
+        "name": "Mohawk",
+        "reason": "Too edgy for a casual vibe."
+      }
+    ],
+    "parting_recommendation": "Natural side part",
+    "fringe_recommendation": "No fringe",
+    "length_options": {
+      "short_verdict": "Great for easy maintenance.",
+      "short_cm": "3-6",
+      "medium_verdict": "Can add more styling options.",
+      "medium_cm": "7-12",
+      "long_verdict": "Not recommended for current style.",
+      "long_cm": "13+"
+    },
+    "color": {
+      "recommended": [
+        {
+          "name": "Jet Black",
+          "hex": "#0A0A0A",
+          "tone": "cool"
+        },
+        {
+          "name": "Dark Ash Brown",
+          "hex": "#4A3B3C",
+          "tone": "cool"
+        },
+        {
+          "name": "Midnight Blue",
+          "hex": "#191970",
+          "tone": "cool"
+        },
+        {
+          "name": "Charcoal",
+          "hex": "#36454F",
+          "tone": "neutral"
+        },
+        {
+          "name": "Cool Espresso",
+          "hex": "#2C2C2C",
+          "tone": "neutral"
+        }
+      ],
+      "avoid": [
+        {
+          "name": "Warm Honey Blonde",
+          "reason": "Clashes with cool undertones."
+        },
+        {
+          "name": "Copper",
+          "reason": "Too warm for personal color."
+        }
+      ],
+      "formula": null,
+      "developer_vol": null,
+      "bleach_required": null
+    },
+    "celebrity_ref": null,
+    "summary": "For a youthful and casual look, a Crew Cut is ideal due to its low maintenance and flattering shape. Consider trying an Ivy League or Pompadour for more styling options. Avoid styles requiring longer hair.",
+    "care_tips": [
+      "Use a lightweight shampoo to avoid weighing hair down.",
+      "Apply a small amount of styling gel for texture.",
+      "Regular trims every 4-6 weeks to maintain shape."
+    ]
+  }
+}
