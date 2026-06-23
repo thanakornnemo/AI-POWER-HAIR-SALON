@@ -3,6 +3,8 @@ import OpenAI from "openai";
 import fs from "fs";
 import path from "path";
 
+const IS_LOCAL = process.env.NODE_ENV === "development";
+
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 function base64ToFile(base64: string, filename: string): File {
@@ -21,12 +23,14 @@ export async function POST(req: NextRequest) {
     const { image, analysis, isPro, photoWarning, sex, additionalContext } = await req.json();
     if (!image || !analysis) return NextResponse.json({ error: "Missing image or analysis" }, { status: 400 });
     const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
-    const logDir = path.join(process.cwd(), "logs");
-    if (!fs.existsSync(logDir)) fs.mkdirSync(logDir);
-    fs.writeFileSync(
-      path.join(logDir, `${timestamp}.json`),
-      JSON.stringify({ timestamp, analysis }, null, 2)
-    );
+    const logDir = IS_LOCAL ? path.join(process.cwd(), "logs") : null;
+    if (logDir) {
+      if (!fs.existsSync(logDir)) fs.mkdirSync(logDir);
+      fs.writeFileSync(
+        path.join(logDir, `${timestamp}.json`),
+        JSON.stringify({ timestamp, analysis }, null, 2)
+      );
+    }
 
     const best = analysis.best_match;
     const goodNames = analysis.good_options?.map((s: { name: string }) => s.name) ?? [];
@@ -237,10 +241,9 @@ ${isPro
   : 'WATERMARK: diagonal text "FREE" repeated across full card, #999999 at 18% opacity, 45° angle, evenly spaced — visible but not intrusive.'}`;
 
 
-    fs.writeFileSync(
-      path.join(logDir, `${timestamp}.prompt.txt`),
-      prompt
-    );
+    if (logDir) {
+      fs.writeFileSync(path.join(logDir, `${timestamp}.prompt.txt`), prompt);
+    }
 
     const imageFile = base64ToFile(image, "face.jpg");
 
@@ -267,8 +270,10 @@ ${isPro
       throw new Error("No image data in response");
     }
 
-    const pngData = base64Image.split(",")[1];
-    fs.writeFileSync(path.join(logDir, `${timestamp}.card.png`), Buffer.from(pngData, "base64"));
+    if (logDir) {
+      const pngData = base64Image.split(",")[1];
+      fs.writeFileSync(path.join(logDir, `${timestamp}.card.png`), Buffer.from(pngData, "base64"));
+    }
 
     return NextResponse.json({ image: base64Image });
 
