@@ -468,3 +468,55 @@ Node.js >= 18.17.0 required. If `node --version` shows older, reload PATH:
 ```powershell
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
 ```
+
+---
+
+## Deployment
+
+Live URL: **https://ai-power-hair-salon.vercel.app**
+
+Hosted on [Vercel](https://vercel.com) (Hobby tier — free, no expiry).
+
+### Deploy steps
+1. Push to `main` branch on GitHub → Vercel redeploys automatically
+2. Set `OPENAI_API_KEY` in Vercel → Settings → Environment Variables
+
+### Environment notes
+- File system logging (`/logs`) is disabled on Vercel (read-only filesystem) — logs are written only when running locally in `development` mode
+- API calls always hit the network — nothing is cached by the Service Worker
+
+---
+
+## PWA (Progressive Web App)
+
+The app is installable as a PWA on iOS and Android without an app store.
+
+### Install on iPhone
+1. Open **Safari** (must be Safari, not Chrome)
+2. Go to `https://ai-power-hair-salon.vercel.app`
+3. Tap **Share** → **Add to Home Screen**
+4. Tap **Add** — icon appears on Home Screen
+5. Opens fullscreen like a native app
+
+### Install on Android
+1. Open **Chrome**
+2. Go to the URL
+3. Tap the **Install** banner or Menu → **Add to Home Screen**
+
+### PWA files
+| File | Purpose |
+|---|---|
+| `public/manifest.json` | App name, icons, theme color, display mode |
+| `public/sw.js` | Service Worker — caches static pages, skips `/api/` routes |
+| `public/apple-touch-icon.png` | 180×180 iOS Home Screen icon |
+| `public/icon-192.png` | Android icon |
+| `public/icon-512.png` | Android splash / high-res |
+| `public/favicon-32.png` | Browser tab icon |
+
+### iOS camera note
+iOS PWA blocks `getUserMedia()` (JavaScript camera access). The app detects iPhone automatically and uses native `<input capture="user">` instead — opening the iPhone camera directly. Works identically from the user's perspective.
+
+### Clear PWA cache on iPhone
+- **Quick:** Long-press icon → Remove App → Delete App → reinstall via Safari
+- **Full Safari cache:** Settings → Safari → Clear History and Website Data
+- **Site only:** Settings → Safari → Advanced → Website Data → delete `vercel.app`
