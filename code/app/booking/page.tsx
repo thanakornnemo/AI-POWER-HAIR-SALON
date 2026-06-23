@@ -17,8 +17,6 @@ export default function BookingPage() {
   const [styleName, setStyleName] = useState("");
   const [styleIndex, setStyleIndex] = useState(0);
   const [styleAddOn, setStyleAddOn] = useState(0);
-  const [originalImage, setOriginalImage] = useState("");
-  const [generatedImage, setGeneratedImage] = useState("");
   const [hasPro, setHasPro] = useState(false);
 
   useEffect(() => {
@@ -26,8 +24,6 @@ export default function BookingPage() {
     if (r) {
       setStyleName(r.selectedStyle);
       setStyleIndex(r.styleIndex);
-      setOriginalImage(r.originalImage);
-      setGeneratedImage(r.generatedImage);
       const h = HAIRSTYLES.find((s) => s.id === r.styleIndex);
       if (h) setStyleAddOn(h.serviceAddOn);
     }

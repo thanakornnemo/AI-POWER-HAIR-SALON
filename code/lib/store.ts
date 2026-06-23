@@ -47,18 +47,55 @@ export interface AnalysisJSON {
     name: string;
     similarity_reason: string;
   } | null;
+  cutting_guide?: {
+    overview: string;
+    section_prep: string;
+    sides: string;
+    back: string;
+    top: string;
+    fringe: string;
+    blending: string;
+    texture_detail: string;
+    finishing: string;
+    tools: string[];
+    color_application: string;
+    estimated_time: string;
+    common_mistakes: string;
+  } | null;
+  cutting_guide_th?: {
+    overview: string;
+    section_prep: string;
+    sides: string;
+    back: string;
+    top: string;
+    fringe: string;
+    blending: string;
+    texture_detail: string;
+    finishing: string;
+    color_application: string;
+    estimated_time: string;
+    common_mistakes: string;
+  } | null;
   summary: string;
   care_tips: string[];
+  care_tips_th?: string[];
 }
 
 // ── Tryon/Analysis session result ───────────────────────────────
 export interface TryonResult {
-  originalImage: string;
-  generatedImage: string;
+  originalImage?: string;
+  generatedImage?: string;
   selectedStyle: string;
   styleIndex: number;
   analysis?: AnalysisJSON;
   isPro?: boolean;
+  qaAnswers?: {
+    desired_style?: string;
+    current_color?: string;
+    target_color?: string;
+    lifestyle?: string;
+    bleached_before?: boolean;
+  } | null;
 }
 
 // ── Unified history record ────────────────────────────────────────
@@ -82,6 +119,13 @@ export interface HistoryRecord {
   notRecommended?: string[];
   careTips?: string[];
   celebrityRef?: string;
+  cuttingGuide?: AnalysisJSON["cutting_guide"];
+  cuttingGuideTh?: AnalysisJSON["cutting_guide_th"];
+  careTipsTh?: string[];
+  qaAnswers?: TryonResult["qaAnswers"];
+  colorFormula?: string;
+  colorDeveloper?: number | null;
+  colorBleach?: boolean | null;
   // Booking fields
   stylistName?: string;
   bookingDate?: string;
@@ -106,11 +150,19 @@ export interface VisitRecord {
   analysis?: AnalysisJSON;
 }
 
+// ── User profile ─────────────────────────────────────────────────
+export type UserSex = "male" | "female";
+
+export interface UserProfile {
+  sex: UserSex | null;
+}
+
 // ── Storage keys ─────────────────────────────────────────────────
 const TRYON_KEY    = "hair_salon_tryon";
 const HISTORY_KEY  = "hair_salon_history";
 const UNIFIED_KEY  = "hair_salon_unified";
 const PRO_KEY      = "hair_salon_pro";
+const PROFILE_KEY  = "hair_salon_profile";
 
 // ── Tryon result (current session) ──────────────────────────────
 export function saveTryonResult(result: TryonResult) {
@@ -139,6 +191,19 @@ export function activateProMode() {
 }
 export function deactivateProMode() {
   if (typeof window !== "undefined") localStorage.removeItem(PRO_KEY);
+}
+
+// ── User profile ─────────────────────────────────────────────────
+export function loadUserProfile(): UserProfile | null {
+  if (typeof window !== "undefined") {
+    const raw = localStorage.getItem(PROFILE_KEY);
+    if (raw) return JSON.parse(raw);
+  }
+  return null;
+}
+export function saveUserProfile(profile: UserProfile) {
+  if (typeof window !== "undefined")
+    localStorage.setItem(PROFILE_KEY, JSON.stringify(profile));
 }
 
 // ── Visit history ─────────────────────────────────────────────────

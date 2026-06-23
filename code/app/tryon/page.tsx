@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import ImageUpload from "@/components/ImageUpload";
-import { isProMode, saveTryonResult, saveScan, AnalysisJSON } from "@/lib/store";
+import { isProMode, saveTryonResult, saveScan, AnalysisJSON, loadUserProfile } from "@/lib/store";
 
 type Step = "upload" | "preview" | "qa" | "analyzing" | "result";
 
@@ -30,10 +30,17 @@ const QA_DEFAULTS: QAAnswers = {
   lifestyle: "",
 };
 
-const QA_SUGGESTIONS = {
-  desired_style: ["ทรงสั้นเกาหลี", "Two Block", "Side Part", "Textured Crop", "ไม่ระบุ"],
+const QA_SUGGESTIONS_MALE = {
+  desired_style: ["Two Block", "Comma Hair", "Side Part", "Taper Fade", "Textured Crop", "ไม่ระบุ"],
   current_color: ["ดำธรรมชาติ", "น้ำตาลเข้ม", "น้ำตาลอ่อน", "เคยฟอกแล้ว"],
   target_color: ["ไม่ต้องการเปลี่ยนสี", "Ash Brown", "Dark Brown", "Ash Black", "Soft Black"],
+  lifestyle: ["ทำงานออฟฟิศ", "นักศึกษา", "ชอบดูแลผม", "ต้องการความง่าย", "ไลฟ์สไตล์แอคทีฟ"],
+};
+
+const QA_SUGGESTIONS_FEMALE = {
+  desired_style: ["Wolf Cut", "Hush Cut", "Bob Cut", "Lob", "Curtain Bangs", "ไม่ระบุ"],
+  current_color: ["ดำธรรมชาติ", "น้ำตาลเข้ม", "น้ำตาลอ่อน", "เคยฟอกแล้ว"],
+  target_color: ["ไม่ต้องการเปลี่ยนสี", "Ash Brown", "Mocha Brown", "Honey Blonde", "Soft Black"],
   lifestyle: ["ทำงานออฟฟิศ", "นักศึกษา", "ชอบดูแลผม", "ต้องการความง่าย", "ไลฟ์สไตล์แอคทีฟ"],
 };
 
@@ -51,7 +58,13 @@ export default function TryonPage() {
   const [analysis, setAnalysis] = useState<AnalysisJSON | null>(null);
   const [loadingMsg, setLoadingMsg] = useState("");
 
-  const isPro = typeof window !== "undefined" ? isProMode() : false;
+  const [isPro, setIsPro] = useState(false);
+  const [userSex, setUserSex] = useState<"male" | "female" | null>(null);
+
+  useEffect(() => {
+    setIsPro(isProMode());
+    setUserSex(loadUserProfile()?.sex ?? null);
+  }, []);
 
   const stepIndex = step === "upload" || step === "preview" ? 0
     : step === "qa" ? 1
@@ -107,7 +120,7 @@ export default function TryonPage() {
       const analyzeRes = await fetch("/api/analyze", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ image: img, isPro: pro, additionalContext: qaAnswers, skipCheck }),
+        body: JSON.stringify({ image: img, isPro: pro, additionalContext: qaAnswers, skipCheck, sex: userSex }),
       });
       const analyzeData = await analyzeRes.json();
       if (!analyzeRes.ok) throw new Error(analyzeData.error ?? "Analysis failed");
@@ -126,38 +139,48 @@ export default function TryonPage() {
       const cardRes = await fetch("/api/card", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ image: img, analysis: analysisResult, isPro: pro, photoWarning: photoWarn }),
+        body: JSON.stringify({ image: img, analysis: analysisResult, isPro: pro, photoWarning: photoWarn, sex: userSex, additionalContext: qaAnswers }),
       });
       const cardData = await cardRes.json();
       if (!cardRes.ok) throw new Error(cardData.error ?? "Card generation failed");
 
       setCardImage(cardData.image);
-      saveTryonResult({
-        originalImage: img,
-        generatedImage: cardData.image,
-        selectedStyle: analysisResult.best_match.name,
-        styleIndex: 0,
-        analysis: analysisResult,
-        isPro: pro,
-      });
-      saveScan({
-        id: Date.now().toString(),
-        timestamp: new Date().toISOString(),
-        type: pro ? "ai-pro" : "ai-free",
-        bestMatch: analysisResult.best_match.name,
-        faceShape: analysisResult.face_shape,
-        personalColor: analysisResult.personal_color,
-        skinTone: analysisResult.skin_tone,
-        hairTexture: analysisResult.hair_texture,
-        hairDensity: analysisResult.hair_density,
-        maintenance: analysisResult.best_match.maintenance,
-        summary: analysisResult.summary.slice(0, 120),
-        topColors: analysisResult.color.recommended.slice(0, 3).map((c) => c.name),
-        goodOptions: analysisResult.good_options.slice(0, 3).map((s) => s.name),
-        notRecommended: analysisResult.not_recommended.slice(0, 3).map((s) => s.name),
-        careTips: analysisResult.care_tips?.slice(0, 3),
-        celebrityRef: analysisResult.celebrity_ref?.name,
-      });
+      try {
+        saveTryonResult({
+          selectedStyle: analysisResult.best_match.name,
+          styleIndex: 0,
+          analysis: analysisResult,
+          isPro: pro,
+          qaAnswers: qaAnswers ?? null,
+        });
+      } catch { /* localStorage full — non-critical */ }
+      try {
+        saveScan({
+          id: Date.now().toString(),
+          timestamp: new Date().toISOString(),
+          type: pro ? "ai-pro" : "ai-free",
+          bestMatch: analysisResult.best_match.name,
+          faceShape: analysisResult.face_shape,
+          personalColor: analysisResult.personal_color,
+          skinTone: analysisResult.skin_tone,
+          hairTexture: analysisResult.hair_texture,
+          hairDensity: analysisResult.hair_density,
+          maintenance: analysisResult.best_match.maintenance,
+          summary: analysisResult.summary.slice(0, 120),
+          topColors: analysisResult.color.recommended.slice(0, 3).map((c) => c.name),
+          goodOptions: analysisResult.good_options.slice(0, 3).map((s) => s.name),
+          notRecommended: analysisResult.not_recommended.slice(0, 3).map((s) => s.name),
+          careTips: analysisResult.care_tips?.slice(0, 3),
+          careTipsTh: analysisResult.care_tips_th?.slice(0, 3),
+          celebrityRef: analysisResult.celebrity_ref?.name,
+          cuttingGuide: analysisResult.cutting_guide ?? null,
+          cuttingGuideTh: analysisResult.cutting_guide_th ?? null,
+          qaAnswers: qaAnswers ?? null,
+          colorFormula: analysisResult.color.formula ?? undefined,
+          colorDeveloper: analysisResult.color.developer_vol,
+          colorBleach: analysisResult.color.bleach_required,
+        });
+      } catch { /* localStorage full — history not saved */ }
       setStep("result");
     } catch (e: unknown) {
       setError(e instanceof Error ? e.message : "Something went wrong. Please try again.");
@@ -167,7 +190,7 @@ export default function TryonPage() {
 
   const handleQASubmit = () => {
     if (!image) return;
-    runAnalysis(image, true, qa);
+    runAnalysis(image, true, qa, true, skippedWarning);
   };
 
   const headings = ["Scan Your Face", "Your Style", "Your Analysis"];
@@ -302,6 +325,17 @@ export default function TryonPage() {
                   <div className="w-full max-w-xs border border-red-200 bg-red-50 rounded-sm px-4 py-3 text-sm text-red-700">{error}</div>
                 )}
 
+                {/* Sex indicator */}
+                <div className="w-full max-w-xs flex items-center justify-between px-4 py-2.5 border border-gray-100 rounded-sm bg-gray-50">
+                  <span className="text-[10px] font-bold tracking-widest uppercase text-gray-400">Style Profile</span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-bold text-gray-700">
+                      {userSex === "male" ? "Male" : userSex === "female" ? "Female" : "Unspecified"}
+                    </span>
+                    <a href="/profile" className="text-[10px] text-gray-400 underline underline-offset-2 hover:text-gray-700 transition-colors">change</a>
+                  </div>
+                </div>
+
                 <div className="flex gap-3 w-full max-w-xs">
                   <button
                     onClick={() => { setImage(null); setWarning(null); setPhotoOk(null); setStep("upload"); }}
@@ -334,30 +368,15 @@ export default function TryonPage() {
 
                 {/* Q&A fields — 2 columns */}
                 <div className="grid grid-cols-2 gap-x-6 gap-y-5">
-                  <QAField
-                    label="อยากลองทรงแบบไหน?"
-                    value={qa.desired_style}
-                    onChange={(v) => setQa(p => ({ ...p, desired_style: v }))}
-                    suggestions={QA_SUGGESTIONS.desired_style}
-                  />
-                  <QAField
-                    label="ผมตอนนี้สีอะไร?"
-                    value={qa.current_color}
-                    onChange={(v) => setQa(p => ({ ...p, current_color: v }))}
-                    suggestions={QA_SUGGESTIONS.current_color}
-                  />
-                  <QAField
-                    label="อยากเปลี่ยนสีผมไหม?"
-                    value={qa.target_color}
-                    onChange={(v) => setQa(p => ({ ...p, target_color: v }))}
-                    suggestions={QA_SUGGESTIONS.target_color}
-                  />
-                  <QAField
-                    label="ไลฟ์สไตล์คุณเป็นแบบไหน?"
-                    value={qa.lifestyle}
-                    onChange={(v) => setQa(p => ({ ...p, lifestyle: v }))}
-                    suggestions={QA_SUGGESTIONS.lifestyle}
-                  />
+                  {(() => {
+                    const S = userSex === "female" ? QA_SUGGESTIONS_FEMALE : QA_SUGGESTIONS_MALE;
+                    return (<>
+                      <QAField label="อยากลองทรงแบบไหน?" value={qa.desired_style} onChange={(v) => setQa(p => ({ ...p, desired_style: v }))} suggestions={S.desired_style} />
+                      <QAField label="ผมตอนนี้สีอะไร?" value={qa.current_color} onChange={(v) => setQa(p => ({ ...p, current_color: v }))} suggestions={S.current_color} />
+                      <QAField label="อยากเปลี่ยนสีผมไหม?" value={qa.target_color} onChange={(v) => setQa(p => ({ ...p, target_color: v }))} suggestions={S.target_color} />
+                      <QAField label="ไลฟ์สไตล์คุณเป็นแบบไหน?" value={qa.lifestyle} onChange={(v) => setQa(p => ({ ...p, lifestyle: v }))} suggestions={S.lifestyle} />
+                    </>);
+                  })()}
                 </div>
 
                 {/* Bleach question — centered, outside grid */}

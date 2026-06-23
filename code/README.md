@@ -23,14 +23,40 @@ All history is stored client-side in `localStorage` (text only, no images stored
 | Pro Q&A (style preferences, lifestyle) | — | ✓ |
 | Hair color formula + developer vol | — | ✓ |
 | Celebrity reference | — | ✓ |
-| Care tips in profile | — | ✓ |
-| Result card watermark | "FREE" diagonal | Clean |
+| Cutting guide (EN + TH) | — | ✓ |
+| Care tips in profile | Basic | Full (EN + TH) |
+| Result card watermark | "FREE" diagonal | Gold "PRO" diagonal |
 | Booking discount | — | 50 THB off every visit |
-| Profile history detail | Basic | Full (6 stats + care tips + celeb ref) |
+| Profile history detail | Basic | Full (6 stats + care tips + celeb ref + cutting guide) |
 
 ---
 
 ## Full User Flow
+
+```
+Upload photo
+    │
+    ▼
+POST /api/analyze (checkOnly: true)  ←── Photo check: GPT-4o, max_tokens:100
+    │
+    ├── unsuitable: true  ──► Preview shows ⚠ amber banner + reason
+    │                              ↓
+    │                    [← Retake] or [Analyse Anyway →]
+    │
+    └── unsuitable: false ──► Preview shows ✓ green banner
+                                   ↓
+                          [← Retake] or [Analyse →]
+                                   ↓
+                     (Pro only) Style Q&A form
+                                   ↓
+                    POST /api/analyze (full analysis)
+                    POST /api/card (infographic)
+                                   ↓
+                         Result card displayed
+                    [Save Card] [Book This Look →] [← Try Again]
+                                   ↓
+                        /brief  →  /booking  →  /profile
+```
 
 ### Step 01 — Scan (Upload)
 1. User uploads a portrait photo via drag-and-drop or file picker
@@ -55,7 +81,7 @@ Pro users see a form before analysis:
 All fields are optional. This context is passed to GPT-4o to personalize recommendations.
 
 ### Analyzing (loader)
-App calls `POST /api/analyze` (full analysis, `max_tokens: 2000`, `temperature: 0.7`) then `POST /api/card` sequentially. Loading messages update between steps ("Analysing your face and hair..." → "Generating your hair analysis card...").
+App calls `POST /api/analyze` (full analysis, `max_tokens: 4000`, `temperature: 0.7`) then `POST /api/card` sequentially. Loading messages update between steps ("Analysing your face and hair..." → "Generating your hair analysis card...").
 
 ### Step 03 — Result
 - AI-generated 1024×1792px card image displayed at 75% width
@@ -83,7 +109,7 @@ App calls `POST /api/analyze` (full analysis, `max_tokens: 2000`, `temperature: 
 ### `/brief` — Technical Brief
 - Reads `TryonResult` from localStorage on mount
 - Shows the generated card image + download button
-- Pro users also see a text technical brief: cut measurements, color formula, celebrity reference, care tips
+- Pro users also see a text technical brief: cutting guide (EN + TH), color formula, celebrity reference, care tips (EN + TH)
 
 ### `/booking` — Book a Stylist
 - Reads last `TryonResult` from localStorage to prefill style name and add-on pricing
@@ -96,7 +122,7 @@ App calls `POST /api/analyze` (full analysis, `max_tokens: 2000`, `temperature: 
 - Loads `HistoryRecord[]` from localStorage
 - Shows unified list: AI Free / AI Pro / Booking items with type badge
 - Click any item → modal popup (`HistoryModal` component)
-- AI records show: best match, face shape, personal color (+ skin tone, hair texture, maintenance for Pro), also suits, top colors, summary, care tips (Pro), celebrity ref (Pro), not recommended (Pro)
+- AI records show: best match, face shape, personal color (+ skin tone, hair texture, maintenance for Pro), also suits, top colors, summary, care tips (Pro), celebrity ref (Pro), cutting guide (Pro), not recommended (Pro)
 - Booking records show: stylist, date, time, estimated price
 - Delete button removes from localStorage
 - Escape key closes modal
@@ -106,72 +132,254 @@ App calls `POST /api/analyze` (full analysis, `max_tokens: 2000`, `temperature: 
 ## API Routes
 
 ### `POST /api/analyze`
+
 **Request:**
 ```json
 {
-  "image": "base64string",
-  "checkOnly": true,
+  "image": "data:image/jpeg;base64,...",
+  "checkOnly": false,
   "isPro": false,
-  "additionalContext": { ... },
+  "sex": "male",
+  "additionalContext": {
+    "desired_style": "Two Block",
+    "current_color": "Black",
+    "target_color": "Ash Brown",
+    "lifestyle": "office",
+    "bleached_before": false
+  },
   "skipCheck": false
 }
 ```
 
-**`checkOnly: true`** — Fast photo validation only:
-- Uses short prompt, `max_tokens: 100`, `temperature: 0`
-- Returns `{ unsuitable: true, reason: "..." }` or `{ unsuitable: false }`
-- Flags: headwear, no hair/scalp visible, face obscured, poor quality, not a person, uncertain
+**Case A — `checkOnly: true`** (photo validation only):
+- GPT-4o with short prompt, `max_tokens: 100`, `temperature: 0`
+- Flags unsuitable if: headwear present, no hair/scalp visible, face obscured, poor quality, not a person, or uncertain
+- Sunglasses alone are NOT flagged
 
-**`checkOnly: false`** — Full analysis:
-- Uses full prompt with `ANALYSIS_SCHEMA` JSON schema, `max_tokens: 2000`, `temperature: 0.7`
-- Hairstyle names constrained to `HAIRSTYLE_LIST` (30 male + 21 female styles)
-- Pro adds: `color.formula`, `color.developer_vol`, `color.bleach_required`, `celebrity_ref`
-- Returns `{ analysis: AnalysisJSON }`
+```json
+// Unsuitable response
+{ "unsuitable": true, "reason": "Subject is wearing a cap — headwear is not permitted." }
+
+// Suitable response
+{ "unsuitable": false }
+```
+
+**Case B — `checkOnly: false`** (full analysis):
+- GPT-4o with full prompt + `ANALYSIS_SCHEMA`, `max_tokens: 4000`, `temperature: 0.7`
+- Hairstyle names constrained to curated list (19 male styles + 22 female styles)
+- `sex` param controls which style list is used; if omitted, GPT detects gender from photo
+- Pro mode adds: `color.formula`, `color.developer_vol`, `color.bleach_required`, `celebrity_ref`, `cutting_guide`, `cutting_guide_th`, `care_tips_th`
+
+```json
+// Success response
+{
+  "analysis": {
+    "face_shape": "oval",
+    "skin_tone": "light",
+    "personal_color": "Winter",
+    "hair_texture": "straight",
+    "hair_density": "medium",
+    "hair_length_current": "medium",
+    "natural_hair_color": "Black",
+    "hairline_type": "rounded",
+    "forehead_size": "medium",
+    "overall_vibe": ["Clean", "Smart", "Friendly"],
+    "best_match": {
+      "name": "Two Block",
+      "match_score": 95,
+      "fade_level": "none",
+      "top_length_cm": 12,
+      "maintenance": "medium",
+      "reason": "Complements oval face shape with a clean professional look."
+    },
+    "good_options": [
+      { "name": "Comma Hair", "match_score": 90, "reason": "..." },
+      { "name": "Curtain Bangs (male)", "match_score": 85, "reason": "..." },
+      { "name": "Side Part", "match_score": 80, "reason": "..." }
+    ],
+    "not_recommended": [
+      { "name": "Mohawk", "reason": "..." },
+      { "name": "Buzz Cut", "reason": "..." },
+      { "name": "Bowl Cut", "reason": "..." }
+    ],
+    "parting_recommendation": "Side part works best",
+    "fringe_recommendation": "Light curtain fringe",
+    "length_options": {
+      "short_verdict": "Clean and sharp",
+      "short_cm": "3-6",
+      "medium_verdict": "Best balance (recommended)",
+      "medium_cm": "7-12",
+      "long_verdict": "Softer vibe",
+      "long_cm": "13+"
+    },
+    "color": {
+      "recommended": [
+        { "name": "Natural Black", "hex": "#1a1a1a", "tone": "neutral" },
+        { "name": "Dark Brown", "hex": "#3b1f0f", "tone": "warm" },
+        { "name": "Ash Brown", "hex": "#7a6a5a", "tone": "cool" },
+        { "name": "Espresso", "hex": "#2c1a0e", "tone": "warm" }
+      ],
+      "avoid": [
+        { "name": "Platinum Blonde", "reason": "Too high contrast for Winter tone" },
+        { "name": "Warm Orange", "reason": "Clashes with cool undertone" }
+      ],
+      "formula": null,
+      "developer_vol": null,
+      "bleach_required": null
+    },
+    "celebrity_ref": null,
+    "summary": "Strong oval face shape with balanced proportions. Winter personal color suits cool, deep tones.",
+    "care_tips": ["Use sulfate-free shampoo", "Apply heat protectant before blow-drying"]
+  }
+}
+
+// Pro-only additional fields in analysis:
+{
+  "color": {
+    "formula": "1 bleach round + Ash Brown 7.1 1:1.5",
+    "developer_vol": 30,
+    "bleach_required": true
+  },
+  "celebrity_ref": {
+    "name": "Gulf Kanawut",
+    "similarity_reason": "Oval face + light skin tone closely matches Gulf's facial structure"
+  },
+  "cutting_guide": {
+    "overview": "Two block with medium top length, clean sides with no fade.",
+    "section_prep": "...",
+    "sides": "Guard #2 (6mm) sides, taper at temple...",
+    "back": "...",
+    "top": "12cm at crown, 45° elevation, point-cut ends...",
+    "fringe": "Light curtain fringe, 8cm, swept left...",
+    "blending": "...",
+    "texture_detail": "...",
+    "finishing": "...",
+    "tools": ["Clippers guard #2", "Scissors 6 inch", "Thinning shears"],
+    "color_application": "Pre-lighten with 30vol x2, then apply Ash Brown 1:1.5 20vol, 30min",
+    "estimated_time": "Consultation 5min · Cut 30min · Color 60min = ~95min total",
+    "common_mistakes": "Over-thinning the crown reduces the Two Block volume illusion."
+  },
+  "cutting_guide_th": { "...": "เนื้อหาเหมือน cutting_guide แต่ภาษาไทย" },
+  "care_tips_th": ["ใช้แชมพูสูตร sulfate-free", "ทาฮีทโปรเทคแตนท์ก่อนใช้ไดร์"]
+}
+
+// Error response
+{ "error": "Analysis failed. Please try again." }
+```
+
+---
 
 ### `POST /api/card`
+
 **Request:**
 ```json
 {
-  "image": "base64string",
-  "analysis": { ...AnalysisJSON },
+  "image": "data:image/jpeg;base64,...",
+  "analysis": { "...": "AnalysisJSON from /api/analyze" },
   "isPro": false,
-  "photoWarning": true
+  "sex": "male",
+  "additionalContext": {
+    "desired_style": "Two Block",
+    "target_color": "Ash Brown"
+  },
+  "photoWarning": false
 }
 ```
-- Constructs detailed infographic prompt from analysis values
+
+- Constructs a detailed 7-block infographic prompt from analysis values
+- Resolves `bestLength`, `bestParting`, `bestColor` deterministically before injecting into prompt (avoids AI misinterpreting relative verdicts)
 - Calls `openai.images.edit` with `gpt-image-2`, size `1024x1792`, quality `high`
-- Returns `{ image: "data:image/png;base64,..." }`
-- Logs: saves `{timestamp}.json` (analysis), `{timestamp}.prompt.txt` (prompt), `{timestamp}.card.png` (result) to `/logs`
+- Logs 3 files per request to `/logs/`: `{timestamp}.json`, `{timestamp}.prompt.txt`, `{timestamp}.card.png`
+
+**Card blocks:**
+| Block | Content |
+|---|---|
+| 1 | Hair & Face Analysis — photo + 7 stat rows |
+| 2+3 | Best Hairstyles (green border) + Not Recommended (red border) side by side |
+| 4 | Hair Length — 5 thumbnails, gold star on best |
+| 5 | Parting & Fringe — 6 thumbnails, gold star on best |
+| 6 | Hair Color — swatch panel + 4 color thumbnails |
+| 7 | Your Best Look — try-on thumbnail + stat panel (+ celebrity thumbnail if Pro) |
+| Footer | Salon branding + optional photo warning |
+
+**Watermark:** `FREE` (gray, 18% opacity) for Free tier · `PRO` (gold, 12% opacity) for Pro tier
+
+```json
+// Success response
+{ "image": "data:image/png;base64,..." }
+
+// Error response
+{ "error": "Card generation failed" }
+```
+
+---
+
+### `POST /api/tryon` (legacy)
+
+Original endpoint from the old tryon flow. Still present but not used in the current analyze+card flow.
+
+**Request:**
+```json
+{
+  "image": "data:image/jpeg;base64,...",
+  "styleName": "Two Block",
+  "styleDescription": "Short sides, longer top, clean disconnected look"
+}
+```
+
+- Calls `openai.images.edit` with `gpt-image-1`, 1024×1024px
+- Returns edited photo with new hairstyle applied to the same face
+- Max image size: 4MB
+
+```json
+// Success response
+{ "image": "data:image/png;base64,..." }
+
+// Error response
+{ "error": "AI ไม่สามารถประมวลผลได้ กรุณาลองใหม่" }
+```
 
 ---
 
 ## Data & State
 
 ### localStorage keys
+
 | Key | Type | Purpose |
 |---|---|---|
 | `hair_salon_tryon` | `TryonResult` | Current session result (original image, generated card, analysis JSON) |
 | `hair_salon_unified` | `HistoryRecord[]` | All AI scans + bookings combined (text-only, newest first) |
 | `hair_salon_pro` | `"true"` | Pro mode flag |
+| `hair_salon_profile` | `UserProfile` | User sex preference (`male` / `female` / null) |
 | `hair_salon_history` | `VisitRecord[]` | Legacy booking history (kept for migration) |
 
 ### Key types (`lib/store.ts`)
-- **`AnalysisJSON`** — full GPT-4o output: face shape, skin tone, personal color, hair texture/density, best match, good options, not recommended, length options, color recommendations, celebrity ref, summary, care tips
-- **`HistoryRecord`** — unified record for both AI scans and bookings. `type: "ai-free" | "ai-pro" | "booking"` determines which fields are populated
-- **`TryonResult`** — current session: original image (base64), generated card image (base64), selected style name, analysis JSON, isPro flag
+
+**`AnalysisJSON`** — full GPT-4o output:
+- Basic: face shape, skin tone, personal color, hair texture/density, best match, good options, not recommended, length options, parting/fringe recommendation, color recommendations, summary, care tips
+- Pro-only additions: `color.formula`, `color.developer_vol`, `color.bleach_required`, `celebrity_ref`, `cutting_guide` (EN), `cutting_guide_th` (TH), `care_tips_th`
+
+**`TryonResult`** — current session:
+- `originalImage` (base64), `generatedImage` (base64), `selectedStyle`, `styleIndex`, `analysis`, `isPro`, `qaAnswers`
+
+**`HistoryRecord`** — unified record for both AI scans and bookings:
+- `type: "ai-free" | "ai-pro" | "booking"` determines which fields are populated
+- AI fields: `bestMatch`, `faceShape`, `personalColor`, `skinTone`, `hairTexture`, `hairDensity`, `maintenance`, `summary`, `topColors`, `goodOptions`, `notRecommended`, `careTips`, `careTipsTh`, `celebrityRef`, `cuttingGuide`, `cuttingGuideTh`, `qaAnswers`, `colorFormula`, `colorDeveloper`, `colorBleach`
+- Booking fields: `stylistName`, `bookingDate`, `bookingTime`, `estimatedPrice`
 
 ### Inter-page data flow
+
 ```
 /tryon
-  → saveTryonResult()     → localStorage[hair_salon_tryon]
-  → saveScan()            → localStorage[hair_salon_unified]
+  → saveTryonResult()     → localStorage[hair_salon_tryon]     (session result)
+  → saveHistoryRecord()   → localStorage[hair_salon_unified]   (scan record)
 
 /brief
   ← loadTryonResult()     ← localStorage[hair_salon_tryon]
 
 /booking
-  ← loadTryonResult()     ← localStorage[hair_salon_tryon]  (style name + pricing)
-  → saveHistoryRecord()   → localStorage[hair_salon_unified]
+  ← loadTryonResult()     ← localStorage[hair_salon_tryon]    (style name + pricing)
+  → saveHistoryRecord()   → localStorage[hair_salon_unified]   (booking record)
 
 /profile
   ← loadUnifiedHistory()  ← localStorage[hair_salon_unified]
@@ -183,20 +391,33 @@ No global state manager — all cross-page state flows through localStorage.
 
 ## AI Prompt Design
 
-### Photo Check Prompt
-Runs at `temperature: 0` for determinism. Explicitly flags any headwear as unsuitable even when face is visible. "UNCERTAIN → unsuitable: true" as a safe default. Sunglasses alone are NOT flagged.
+### Photo Check Prompt (`checkOnly: true`)
+- Runs at `temperature: 0` for determinism
+- Explicitly flags any headwear (hat, beanie, hijab, etc.) as unsuitable even when face is fully visible
+- "UNCERTAIN → unsuitable: true" as a safe default
+- Sunglasses alone are NOT flagged
 
-### Analysis Prompt
-- Forces all output in English
-- Constrains hairstyle names to a curated list of 30 male + 21 female styles (popular in Thailand/Korea)
-- Requires exactly 3 `good_options`, 3 `not_recommended`, 4–5 color recommendations
-- Pro mode adds lifestyle context from Q&A and fills formula/developer/bleach fields
+### Analysis Prompt (`checkOnly: false`)
+- Forces all output in English (except `cutting_guide_th` and `care_tips_th`)
+- Constrains hairstyle names to a curated list: **19 male styles** (Two Block, Comma Hair, Taper Fade, Burst Fade, Drop Fade, Mullet, Korean Perm, Curtain Bangs (male), Side Part, Undercut, Buzz Cut, Crew Cut, French Crop, Quiff, Slick Back, Textured Crop, Bowl Cut, Man Bun, Mohawk) and **22 female styles** (Wendy Cut, Hush Cut, Layered Slide Cut, Wolf Cut, Shag Cut, Bob Cut, French Bob, Lob, Pixie Cut, Straight Blunt Cut, Butterfly Cut, Hime Cut, Curtain Bangs, Wispy Bangs, Volume Magic, C-Curl, S-Wave Perm, Korean Perm (female), Collarbone Cut, Octopus Cut, Bixie Cut, Asymmetric Bob)
+- `sex` param routes to the correct style sublist; omitting it lets GPT detect from photo
+- Requires exactly 3 `good_options`, 3 `not_recommended`, 4–5 color recommendations, 2–3 avoid colors
+- Pro mode: passes lifestyle Q&A context, requests celebrity ref (Thai-first priority), cutting guide both EN and TH with full technical detail (guard numbers, cm measurements, elevation angles, tool list, timing breakdown)
 
 ### Card Generation Prompt
-- 7 blocks: Hair & Face Analysis · Best Hairstyles · Not Recommended · Hair Length · Parting & Fringe · Hair Color · Best Look
-- Best picks (length, parting, color) are resolved by the route handler before being hardcoded into the prompt — avoids AI interpreting relative verdicts
-- FREE watermark added for non-Pro users
-- `photoWarning: true` adds warning line in footer
+- 7-block infographic with strict layout rules (no creative deviation)
+- `bestLength` resolved by route handler: maps `top_length_cm` to a label bucket — avoids AI misinterpreting relative terms
+- `bestParting` resolved by style-to-parting override map (e.g. Two Block → Side Part, Comma Hair → Comma Hair, Wolf Cut → Curtain Bangs)
+- `bestColor` = first item in `color.recommended`
+- Block 7 switches between 2-column (no celeb) and 3-column (Pro with celeb) layout
+- If Pro + Q&A filled: Block 7 left thumbnail shows the requested style/color try-on instead of best match
+- FREE watermark: `#999999` at 18% opacity · PRO watermark: `#c8a96e` gold at 12% opacity
+
+---
+
+## Hairstyle Catalogue (`lib/hairstyles.ts`)
+
+Used for the old booking add-on pricing. Each entry has `name`, `nameEn`, `emoji`, `description` (used in the old `/api/tryon` prompt), and `brief` (side/top/back technical details). Not used in the current analyze+card flow — the style list is embedded directly in the analyze prompt.
 
 ---
 
@@ -205,25 +426,26 @@ Runs at `temperature: 0` for determinism. Explicitly flags any headwear as unsui
 ```
 app/
   page.tsx                  Landing, Pro activation
-  tryon/page.tsx            Main scan flow (all 5 steps)
-  brief/page.tsx            Technical brief view
+  tryon/page.tsx            Main scan flow (5 states: upload→preview→qa→analyzing→result)
+  brief/page.tsx            Technical brief view (card + Pro cutting guide)
   booking/page.tsx          Booking flow
   profile/page.tsx          Unified history + HistoryModal
   api/
-    analyze/route.ts        Photo check + GPT-4o analysis
-    card/route.ts           GPT-Image-2 card generation
+    analyze/route.ts        Photo check + GPT-4o full analysis
+    card/route.ts           GPT-Image-2 infographic card generation + logging
+    tryon/route.ts          Legacy hair try-on (gpt-image-1, not used in current flow)
 
 components/
   ImageUpload.tsx           Drag-and-drop photo uploader
-  Nav.tsx                   Bottom nav (mobile) / top nav (desktop)
+  Nav.tsx                   Bottom nav (mobile) / top nav (desktop), usePathname for active tab
   StylistCard.tsx           Stylist list + static data
   TimeSlotPicker.tsx        Date/time slot selector
 
 lib/
-  store.ts                  All localStorage helpers + TypeScript types
-  hairstyles.ts             Static hairstyle catalogue (for booking add-ons)
+  store.ts                  All localStorage helpers + TypeScript types (TryonResult, HistoryRecord, AnalysisJSON)
+  hairstyles.ts             Static hairstyle catalogue (legacy, for booking add-ons)
 
-logs/                       Auto-saved per request: .json · .prompt.txt · .card.png
+logs/                       Auto-saved per card request: .json · .prompt.txt · .card.png (gitignored)
 ```
 
 ---
@@ -242,4 +464,7 @@ Create `.env.local`:
 OPENAI_API_KEY=sk-...
 ```
 
-Node.js >= 18.17.0 required.
+Node.js >= 18.17.0 required. If `node --version` shows older, reload PATH:
+```powershell
+$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+```
