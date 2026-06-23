@@ -9,6 +9,7 @@ interface Props {
 
 export default function ImageUpload({ onImageSelected, currentImage }: Props) {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const cameraInputRef = useRef<HTMLInputElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [cameraActive, setCameraActive] = useState(false);
   const [cameraError, setCameraError] = useState(false);
@@ -21,7 +22,13 @@ export default function ImageUpload({ onImageSelected, currentImage }: Props) {
     reader.readAsDataURL(file);
   }, [onImageSelected]);
 
+  const isIOS = typeof navigator !== "undefined" && /iphone|ipad|ipod/i.test(navigator.userAgent);
+
   const openCamera = async () => {
+    if (isIOS) {
+      cameraInputRef.current?.click();
+      return;
+    }
     try {
       const s = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user", width: 720, height: 720 } });
       setStream(s); setCameraActive(true);
@@ -119,6 +126,8 @@ export default function ImageUpload({ onImageSelected, currentImage }: Props) {
             <span className="text-[9px] tracking-wide leading-tight text-center uppercase">Upload Gallery</span>
           </button>
           <input ref={fileInputRef} type="file" accept="image/*" className="hidden"
+            onChange={(e) => { const f = e.target.files?.[0]; if (f) handleFile(f); }} />
+          <input ref={cameraInputRef} type="file" accept="image/*" capture="user" className="hidden"
             onChange={(e) => { const f = e.target.files?.[0]; if (f) handleFile(f); }} />
         </div>
 
