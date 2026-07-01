@@ -192,7 +192,7 @@ export function activateProMode() {
   if (typeof window !== "undefined") localStorage.setItem(PRO_KEY, "true");
 }
 export function deactivateProMode() {
-  if (typeof window !== "undefined") localStorage.removeItem(PRO_KEY);
+  if (typeof window !== "undefined") localStorage.setItem(PRO_KEY, "false");
 }
 
 // ── User profile ─────────────────────────────────────────────────

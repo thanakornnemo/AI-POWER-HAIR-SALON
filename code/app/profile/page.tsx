@@ -305,7 +305,9 @@ export default function ProfilePage() {
     setRecords(loadUnifiedHistory());
     setPro(isProMode());
     const profile = loadUserProfile();
-    if (profile) setSex(profile.sex ?? "unspecified");
+    const resolvedSex = profile?.sex ?? "female";
+    setSex(resolvedSex);
+    if (!profile?.sex) saveUserProfile({ sex: "female" });
   }, []);
 
   const handleSexChange = (val: UserSex | "unspecified") => {
