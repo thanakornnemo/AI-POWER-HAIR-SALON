@@ -63,7 +63,7 @@ export default function TryonPage() {
 
   useEffect(() => {
     setIsPro(isProMode());
-    setUserSex(loadUserProfile()?.sex ?? null);
+    setUserSex(loadUserProfile()?.sex ?? "female");
   }, []);
 
   const stepIndex = step === "upload" || step === "preview" ? 0

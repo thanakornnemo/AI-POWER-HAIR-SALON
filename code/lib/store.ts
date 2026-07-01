@@ -182,9 +182,11 @@ export function clearTryonResult() {
 
 // ── Pro Mode ──────────────────────────────────────────────────────
 export function isProMode(): boolean {
-  if (typeof window !== "undefined")
-    return localStorage.getItem(PRO_KEY) === "true";
-  return false;
+  if (typeof window !== "undefined") {
+    const val = localStorage.getItem(PRO_KEY);
+    return val === null ? true : val === "true";
+  }
+  return true;
 }
 export function activateProMode() {
   if (typeof window !== "undefined") localStorage.setItem(PRO_KEY, "true");
